@@ -20,7 +20,7 @@ class TopicService(
     }
 
     fun register(topicDTO: TopicDTO) {
-        topics.plus(
+       topics = topics.plus(
             TopicModel(
                 id = topics.size.toLong() + 1,
                 title = topicDTO.title,
