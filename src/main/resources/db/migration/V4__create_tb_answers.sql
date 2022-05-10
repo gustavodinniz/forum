@@ -1,6 +1,6 @@
 create table TB_ANSWERS
 (
-    id            bigint       not null,
+    id            bigint       not null auto_increment,
     message       varchar(300) not null,
     creation_date datetime     not null,
     topic_id      bigint       not null,

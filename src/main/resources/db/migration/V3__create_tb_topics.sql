@@ -1,6 +1,6 @@
 create table TB_TOPICS
 (
-    id            bigint       not null,
+    id            bigint       not null auto_increment,
     title         varchar(50)  not null,
     message       varchar(300) not null,
     creation_date datetime     not null,
