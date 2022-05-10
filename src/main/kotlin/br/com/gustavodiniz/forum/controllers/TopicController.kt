@@ -4,6 +4,7 @@ import br.com.gustavodiniz.forum.dtos.NewTopicForm
 import br.com.gustavodiniz.forum.dtos.TopicView
 import br.com.gustavodiniz.forum.services.TopicService
 import org.springframework.web.bind.annotation.*
+import javax.validation.Valid
 
 @RestController
 @RequestMapping("/topics")
@@ -20,7 +21,7 @@ class TopicController(private val topicService: TopicService) {
     }
 
     @PostMapping
-    fun register(@RequestBody newTopicForm: NewTopicForm) {
+    fun register(@RequestBody @Valid newTopicForm: NewTopicForm) {
         topicService.register(newTopicForm)
     }
 }
