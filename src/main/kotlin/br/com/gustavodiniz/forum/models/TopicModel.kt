@@ -5,6 +5,7 @@ import java.time.LocalDateTime
 import javax.persistence.*
 
 @Entity
+@Table(name = "TB_TOPICS")
 data class TopicModel(
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     var id: Long? = null,
