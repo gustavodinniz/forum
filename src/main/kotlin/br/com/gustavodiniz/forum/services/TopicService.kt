@@ -2,6 +2,7 @@ package br.com.gustavodiniz.forum.services
 
 import br.com.gustavodiniz.forum.dtos.NewTopicForm
 import br.com.gustavodiniz.forum.dtos.TopicView
+import br.com.gustavodiniz.forum.dtos.UpdateTopicForm
 import br.com.gustavodiniz.forum.mappers.TopicFormMapper
 import br.com.gustavodiniz.forum.mappers.TopicViewMapper
 import br.com.gustavodiniz.forum.models.TopicModel
@@ -32,5 +33,21 @@ class TopicService(
         val topic = topicFormMapper.map(newTopicForm)
         topic.id = topics.size.toLong() + 1
         topics = topics.plus(topic)
+    }
+
+    fun update(updateTopicForm: UpdateTopicForm) {
+        val topic = topics.stream().filter { t -> t.id == updateTopicForm.id }.findFirst().get()
+        topics = topics.minus(topic).plus(
+            TopicModel(
+                id = updateTopicForm.id,
+                title = updateTopicForm.title,
+                message = updateTopicForm.message,
+                author = topic.author,
+                course = topic.course,
+                answers = topic.answers,
+                status = topic.status,
+                creationDate = topic.creationDate
+            )
+        )
     }
 }

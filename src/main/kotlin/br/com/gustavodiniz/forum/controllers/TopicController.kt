@@ -2,6 +2,7 @@ package br.com.gustavodiniz.forum.controllers
 
 import br.com.gustavodiniz.forum.dtos.NewTopicForm
 import br.com.gustavodiniz.forum.dtos.TopicView
+import br.com.gustavodiniz.forum.dtos.UpdateTopicForm
 import br.com.gustavodiniz.forum.services.TopicService
 import org.springframework.web.bind.annotation.*
 import javax.validation.Valid
@@ -23,5 +24,10 @@ class TopicController(private val topicService: TopicService) {
     @PostMapping
     fun register(@RequestBody @Valid newTopicForm: NewTopicForm) {
         topicService.register(newTopicForm)
+    }
+
+    @PutMapping()
+    fun update(@RequestBody @Valid updateTopicForm: UpdateTopicForm){
+        topicService.update(updateTopicForm)
     }
 }
