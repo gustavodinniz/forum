@@ -8,8 +8,12 @@ create table TB_COURSES
 
 insert into TB_COURSES(id, name, category)
 values (1, 'Kotlin', 'Backend');
+insert into TB_COURSES(id, name, category)
 values (2, 'Java 11', 'Backend');
+insert into TB_COURSES(id, name, category)
 values (3, 'Angular', 'Frontend');
+insert into TB_COURSES(id, name, category)
 values (4, 'React', 'Frontend');
+insert into TB_COURSES(id, name, category)
 values (5, 'Docker', 'Cloud');
 

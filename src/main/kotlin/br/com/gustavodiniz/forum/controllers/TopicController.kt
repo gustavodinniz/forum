@@ -4,6 +4,9 @@ import br.com.gustavodiniz.forum.dtos.NewTopicForm
 import br.com.gustavodiniz.forum.dtos.TopicView
 import br.com.gustavodiniz.forum.dtos.UpdateTopicForm
 import br.com.gustavodiniz.forum.services.TopicService
+import org.springframework.data.domain.Page
+import org.springframework.data.domain.Pageable
+import org.springframework.data.web.PageableDefault
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.transaction.annotation.Transactional
@@ -16,8 +19,11 @@ import javax.validation.Valid
 class TopicController(private val topicService: TopicService) {
 
     @GetMapping
-    fun list(@RequestParam(required = false) courseName: String?): List<TopicView> {
-        return topicService.list(courseName)
+    fun list(
+        @RequestParam(required = false) courseName: String?,
+        @PageableDefault(size = 10) pageable: Pageable
+    ): Page<TopicView> {
+        return topicService.list(courseName, pageable)
     }
 
     @GetMapping("/{id}")

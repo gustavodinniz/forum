@@ -7,8 +7,9 @@ import br.com.gustavodiniz.forum.exceptions.NotFoundException
 import br.com.gustavodiniz.forum.mappers.TopicFormMapper
 import br.com.gustavodiniz.forum.mappers.TopicViewMapper
 import br.com.gustavodiniz.forum.repositories.TopicRepository
+import org.springframework.data.domain.Page
+import org.springframework.data.domain.Pageable
 import org.springframework.stereotype.Service
-import java.util.stream.Collectors
 
 @Service
 class TopicService(
@@ -20,15 +21,15 @@ class TopicService(
     private val notFoundMessage: String = "Topic not found."
 ) {
 
-    fun list(courseName: String?): List<TopicView> {
+    fun list(courseName: String?, pageable: Pageable): Page<TopicView> {
         val topics = if (courseName == null) {
-            topicRepository.findAll()
+            topicRepository.findAll(pageable)
         } else {
-            topicRepository.findByCourseName(courseName)
+            topicRepository.findByCourseName(courseName, pageable)
         }
-        return topics.stream().map { t ->
+        return topics.map { t ->
             topicViewMapper.map(t)
-        }.collect(Collectors.toList())
+        }
     }
 
     fun findById(id: Long): TopicView {
