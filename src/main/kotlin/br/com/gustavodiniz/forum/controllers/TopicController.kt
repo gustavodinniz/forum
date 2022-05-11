@@ -4,6 +4,8 @@ import br.com.gustavodiniz.forum.dtos.NewTopicForm
 import br.com.gustavodiniz.forum.dtos.TopicView
 import br.com.gustavodiniz.forum.dtos.UpdateTopicForm
 import br.com.gustavodiniz.forum.services.TopicService
+import org.springframework.cache.annotation.CacheEvict
+import org.springframework.cache.annotation.Cacheable
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
 import org.springframework.data.domain.Sort
@@ -20,6 +22,7 @@ import javax.validation.Valid
 class TopicController(private val topicService: TopicService) {
 
     @GetMapping
+    @Cacheable("topics_list")
     fun list(
         @RequestParam(required = false) courseName: String?,
         @PageableDefault(size = 10, sort = ["creationDate"], direction = Sort.Direction.DESC) pageable: Pageable
@@ -34,6 +37,7 @@ class TopicController(private val topicService: TopicService) {
 
     @Transactional
     @PostMapping
+    @CacheEvict(value = ["topics_list"], allEntries = true)
     fun register(
         @RequestBody @Valid newTopicForm: NewTopicForm,
         uriBuilder: UriComponentsBuilder
@@ -45,6 +49,7 @@ class TopicController(private val topicService: TopicService) {
 
     @PutMapping
     @Transactional
+    @CacheEvict(value = ["topics_list"], allEntries = true)
     fun update(@RequestBody @Valid updateTopicForm: UpdateTopicForm): ResponseEntity<TopicView> {
         val topicView = topicService.update(updateTopicForm)
         return ResponseEntity.ok(topicView)
@@ -53,6 +58,7 @@ class TopicController(private val topicService: TopicService) {
     @Transactional
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
+    @CacheEvict(value = ["topics_list"], allEntries = true)
     fun delete(@PathVariable id: Long) {
         topicService.delete(id)
     }
