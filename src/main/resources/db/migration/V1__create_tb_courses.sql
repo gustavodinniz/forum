@@ -7,5 +7,9 @@ create table TB_COURSES
 );
 
 insert into TB_COURSES(id, name, category)
-values (1, 'Kotlin', 'API REST com Kotlin e Spring Boot');
+values (1, 'Kotlin', 'Backend');
+values (2, 'Java 11', 'Backend');
+values (3, 'Angular', 'Frontend');
+values (4, 'React', 'Frontend');
+values (5, 'Docker', 'Cloud');
 
