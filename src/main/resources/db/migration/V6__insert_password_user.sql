@@ -1,0 +1,1 @@
+update TB_USERS set password = '$2a$12$v8BchRQ5Z0p3q9WGyCplbei7WTAxPjxyk.NfPXlnx6FGe7eC/08Tm' where id = 1;
